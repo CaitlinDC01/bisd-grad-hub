@@ -841,8 +841,14 @@
         start: "10:00 AM",
         doors: "9:00 AM",
         venue: "Montagne Center",
-        ticket: "No ticket required for this ceremony.",
-        office: "West Brook Graduation Office",
+        ticket: {
+          en: "No ticket required for this ceremony.",
+          es: "No se requiere boleto para esta ceremonia."
+        },
+        office: {
+          en: "West Brook Graduation Office",
+          es: "Oficina de Graduación de West Brook"
+        },
         countdown: "2027-05-29T10:00:00"
       },
       beaumont: {
@@ -851,8 +857,14 @@
         start: "2:00 PM",
         doors: "1:00 PM",
         venue: "Montagne Center",
-        ticket: "Digital tickets required. Please have tickets ready before entry.",
-        office: "Beaumont United Graduation Office",
+        ticket: {
+          en: "Digital tickets required. Please have tickets ready before entry.",
+          es: "Se requieren boletos digitales. Tenga los boletos listos antes de entrar."
+        },
+        office: {
+          en: "Beaumont United Graduation Office",
+          es: "Oficina de Graduación de Beaumont United"
+        },
         countdown: "2027-05-29T14:00:00"
       },
       earlycollege: {
@@ -861,13 +873,381 @@
         start: "6:00 PM",
         doors: "5:00 PM",
         venue: "BISD Performing Arts Center",
-        ticket: "Ticket required. Each graduate receives a set number of guest tickets.",
-        office: "Early College Graduation Office",
+        ticket: {
+          en: "Ticket required. Each graduate receives a set number of guest tickets.",
+          es: "Se requiere boleto. Cada graduado recibe un número específico de boletos para invitados."
+        },
+        office: {
+          en: "Early College Graduation Office",
+          es: "Oficina de Graduación de Early College"
+        },
         countdown: "2027-05-28T18:00:00"
       }
     };
 
     let activeCountdownDate = campusData.westbrook.countdown;
+    let currentLanguage = "en";
+
+    const translations = {
+      en: {
+        languageBtn: "Español",
+        heroTitle: "Family Graduation Command Center",
+        heroSubhead: "Everything families need for ceremony day: arrival details, parking, accessibility, livestream access, reunification guidance, photos, FAQs, and support.",
+        campusLabel: "Choose Your Campus",
+        alertText: "Graduation Day Reminder: Guests are encouraged to arrive 45–60 minutes before the ceremony start time.",
+        basics: "Basics",
+        parking: "Parking",
+        entry: "Entry",
+        access: "Access",
+        live: "Live",
+        help: "Help",
+        overviewTitle: "Ceremony Overview",
+        overviewSub: "The basics families need first",
+        campus: "Campus",
+        date: "Date",
+        startTime: "Start Time",
+        doorsOpen: "Doors Open",
+        venue: "Venue",
+        duration: "Estimated Duration",
+        durationValue: "90–120 minutes",
+        screenshotTip: "Tip: Screenshot this section before leaving home so you have the key details ready even with limited service.",
+        parkingTitle: "Parking & Arrival",
+        parkingSub: "Getting there without stress",
+        parkingMap: "Interactive Parking Map Placeholder",
+        parkingMapSmall: "Guest Parking • ADA Parking • Shuttle Stop • Restricted Areas",
+        recommendedArrival: "Recommended Arrival",
+        recommendedArrivalValue: "45–60 minutes early",
+        guestParking: "Guest Parking",
+        guestParkingValue: "Lots A, B, and C",
+        adaParking: "ADA Parking",
+        adaParkingValue: "Lot A near main entrance",
+        shuttle: "Shuttle Info",
+        shuttleValue: "Available from overflow parking if needed",
+        trafficTip: "Traffic staff will direct guests upon arrival. Please follow posted signage and avoid restricted graduate/staff areas.",
+        ticketTitle: "Ticketing & Entry",
+        ticketSub: "What families need to enter",
+        tickets: "Tickets",
+        entryGate: "Entry Gate",
+        entryGateValue: "Main entrance doors",
+        reentry: "Re-Entry",
+        reentryValue: "Re-entry is not permitted once guests exit.",
+        children: "Children",
+        childrenValue: "Children are welcome but must remain with an adult.",
+        prohibitedBtn: "View Prohibited Items",
+        entryHelpBtn: "Need Entry Help?",
+        accessibilityTitle: "Accessibility Support",
+        accessibilitySub: "Everyone should be able to celebrate",
+        adaSeating: "ADA Seating",
+        adaSeatingValue: "Available near main seating areas on a first-come basis.",
+        wheelchair: "Wheelchair Access",
+        wheelchairValue: "Accessible routes available from ADA parking.",
+        restrooms: "Restrooms",
+        restroomsValue: "Accessible restrooms located near main concourse.",
+        contact: "Contact",
+        accessTip: "Families needing support are encouraged to contact the campus graduation office before ceremony day.",
+        faqTitle: "Ceremony Expectations & FAQs",
+        faqSub: "Avoid the day-of chaos",
+        q1: "How long is the ceremony?",
+        a1: "Most ceremonies last approximately 90–120 minutes.",
+        q2: "Can I bring balloons or large signs?",
+        a2: "Large balloons, oversized signs, and items that block views are not allowed inside the venue.",
+        q3: "Can I bring outside food or drinks?",
+        a3: "Outside food and drinks are not permitted unless needed for medical reasons.",
+        q4: "What items are prohibited?",
+        a4: "Weapons, noisemakers, large bags, confetti, air horns, and view-blocking decorations are prohibited.",
+        q5: "What if weather impacts plans?",
+        a5: "Weather updates will be posted on this hub, district social media, and campus communication channels.",
+        q6: "What if my graduate is late?",
+        a6: "Graduates should follow campus reporting instructions. Late arrivals may be directed by campus staff.",
+        liveTitle: "Livestream Access",
+        liveSub: "Celebrate from anywhere",
+        liveText: "Can’t attend in person? Families and friends can watch the ceremony online from any mobile device, tablet, or computer.",
+        streamBegins: "Stream Begins",
+        streamBeginsValue: "15 minutes before ceremony",
+        replay: "Replay",
+        replayValue: "Available within 48 hours, if planned",
+        openLivestream: "Open Livestream",
+        shareFamily: "Share with Family",
+        programTitle: "Digital Program",
+        programSub: "Order of ceremony and recognitions",
+        viewProgram: "View Full Program",
+        meetupTitle: "Post-Ceremony Reunification",
+        meetupSub: "Where to meet your graduate",
+        meetupMap: "Reunification Map Placeholder",
+        meetupMapSmall: "Family Zones • Photo Areas • Restricted Graduate Exit Areas",
+        meetupTip: "Designated graduate meet-up zones will be available immediately following the ceremony. Families should avoid gathering near restricted exits.",
+        meetupZones: "Meet-Up Zones",
+        meetupZonesValue: "Zones 1–4 outside the main concourse",
+        photoSpots: "Photo Spots",
+        photoSpotsValue: "Gold backdrop, campus banner, and outdoor plaza",
+        photosTitle: "Photos & Memories",
+        photosSub: "Graduation photo information",
+        photosText: "Professional graduate photos and district recap galleries will be shared after the ceremony.",
+        orderPhotos: "Order Graduate Photos",
+        viewGallery: "View District Gallery",
+        socialTitle: "Community Celebration",
+        socialSub: "Share the moment with BISD",
+        socialText: "Families are encouraged to tag BISD and celebrate their graduates online.",
+        supportTitle: "Family Support Contacts",
+        supportSub: "Need help?",
+        email: "Email",
+        eventHotline: "Event Hotline",
+        campusOffice: "Campus Office",
+        hours: "Hours",
+        hoursValue: "Monday–Friday, 8:00 AM–4:30 PM",
+        classTitle: "Meet the Class of 2027",
+        classSub: "Optional senior spotlight feature",
+        bottomHelp: "Need quick help?",
+        askHub: "Ask Hub",
+        chatTitle: "Graduation Support Assistant",
+        chatIntro: "This demo assistant gives families quick answers to the most common graduation questions.",
+        chatDefault: "Choose a question above to see a quick answer.",
+        close: "Close",
+        footer: "Demo prototype for family experience, event communication, and guest support planning.",
+        footerChannels: "Delivery channels: QR code signage, email, district website, social media, printed materials, and campus communication."
+      },
+      es: {
+        languageBtn: "English",
+        heroTitle: "Centro Digital de Graduación para Familias",
+        heroSubhead: "Todo lo que las familias necesitan para el día de la ceremonia: llegada, estacionamiento, accesibilidad, transmisión en vivo, punto de reunión, fotos, preguntas frecuentes y apoyo.",
+        campusLabel: "Elija su escuela",
+        alertText: "Recordatorio del día de graduación: Se recomienda que los invitados lleguen 45–60 minutos antes del inicio de la ceremonia.",
+        basics: "Información",
+        parking: "Estac.",
+        entry: "Entrada",
+        access: "Acceso",
+        live: "En Vivo",
+        help: "Ayuda",
+        overviewTitle: "Resumen de la Ceremonia",
+        overviewSub: "La información básica que las familias necesitan primero",
+        campus: "Escuela",
+        date: "Fecha",
+        startTime: "Hora de inicio",
+        doorsOpen: "Puertas abren",
+        venue: "Lugar",
+        duration: "Duración estimada",
+        durationValue: "90–120 minutos",
+        screenshotTip: "Consejo: Tome una captura de esta sección antes de salir de casa para tener la información clave lista, incluso con servicio limitado.",
+        parkingTitle: "Estacionamiento y Llegada",
+        parkingSub: "Llegar sin estrés",
+        parkingMap: "Marcador para Mapa Interactivo de Estacionamiento",
+        parkingMapSmall: "Estacionamiento • ADA • Transporte • Áreas restringidas",
+        recommendedArrival: "Llegada recomendada",
+        recommendedArrivalValue: "45–60 minutos antes",
+        guestParking: "Estacionamiento para invitados",
+        guestParkingValue: "Lotes A, B y C",
+        adaParking: "Estacionamiento ADA",
+        adaParkingValue: "Lote A cerca de la entrada principal",
+        shuttle: "Información de transporte",
+        shuttleValue: "Disponible desde estacionamiento adicional si es necesario",
+        trafficTip: "El personal de tráfico dirigirá a los invitados al llegar. Siga los letreros y evite las áreas restringidas para graduados/personal.",
+        ticketTitle: "Boletos y Entrada",
+        ticketSub: "Lo que las familias necesitan para entrar",
+        tickets: "Boletos",
+        entryGate: "Entrada",
+        entryGateValue: "Puertas de entrada principal",
+        reentry: "Reingreso",
+        reentryValue: "No se permite reingresar después de salir.",
+        children: "Niños",
+        childrenValue: "Los niños son bienvenidos, pero deben permanecer con un adulto.",
+        prohibitedBtn: "Ver artículos prohibidos",
+        entryHelpBtn: "¿Necesita ayuda para entrar?",
+        accessibilityTitle: "Apoyo de Accesibilidad",
+        accessibilitySub: "Todos deben poder celebrar",
+        adaSeating: "Asientos ADA",
+        adaSeatingValue: "Disponibles cerca de las áreas principales por orden de llegada.",
+        wheelchair: "Acceso para silla de ruedas",
+        wheelchairValue: "Rutas accesibles disponibles desde el estacionamiento ADA.",
+        restrooms: "Baños",
+        restroomsValue: "Baños accesibles ubicados cerca del vestíbulo principal.",
+        contact: "Contacto",
+        accessTip: "Se recomienda que las familias que necesiten apoyo contacten a la oficina de graduación de la escuela antes del día de la ceremonia.",
+        faqTitle: "Expectativas y Preguntas Frecuentes",
+        faqSub: "Evite la confusión del día de la ceremonia",
+        q1: "¿Cuánto dura la ceremonia?",
+        a1: "La mayoría de las ceremonias duran aproximadamente 90–120 minutos.",
+        q2: "¿Puedo traer globos o letreros grandes?",
+        a2: "No se permiten globos grandes, letreros grandes ni artículos que bloqueen la vista dentro del lugar.",
+        q3: "¿Puedo traer comida o bebidas?",
+        a3: "No se permiten alimentos ni bebidas externas, excepto por razones médicas.",
+        q4: "¿Qué artículos están prohibidos?",
+        a4: "Están prohibidos armas, matracas, bolsas grandes, confeti, bocinas de aire y decoraciones que bloqueen la vista.",
+        q5: "¿Qué pasa si el clima afecta los planes?",
+        a5: "Las actualizaciones del clima se publicarán en este centro, redes sociales del distrito y canales de comunicación de la escuela.",
+        q6: "¿Qué pasa si mi graduado llega tarde?",
+        a6: "Los graduados deben seguir las instrucciones de llegada de su escuela. El personal puede dirigir a quienes lleguen tarde.",
+        liveTitle: "Transmisión en Vivo",
+        liveSub: "Celebre desde cualquier lugar",
+        liveText: "¿No puede asistir en persona? Familiares y amigos pueden ver la ceremonia en línea desde un teléfono, tableta o computadora.",
+        streamBegins: "La transmisión comienza",
+        streamBeginsValue: "15 minutos antes de la ceremonia",
+        replay: "Repetición",
+        replayValue: "Disponible dentro de 48 horas, si está planificado",
+        openLivestream: "Abrir transmisión",
+        shareFamily: "Compartir con familia",
+        programTitle: "Programa Digital",
+        programSub: "Orden de la ceremonia y reconocimientos",
+        viewProgram: "Ver programa completo",
+        meetupTitle: "Reunificación Después de la Ceremonia",
+        meetupSub: "Dónde reunirse con su graduado",
+        meetupMap: "Marcador para Mapa de Reunificación",
+        meetupMapSmall: "Zonas familiares • Áreas de fotos • Salidas restringidas",
+        meetupTip: "Habrá zonas designadas para reunirse con los graduados inmediatamente después de la ceremonia. Las familias deben evitar reunirse cerca de salidas restringidas.",
+        meetupZones: "Zonas de reunión",
+        meetupZonesValue: "Zonas 1–4 fuera del vestíbulo principal",
+        photoSpots: "Lugares para fotos",
+        photoSpotsValue: "Fondo dorado, pancarta de la escuela y plaza exterior",
+        photosTitle: "Fotos y Recuerdos",
+        photosSub: "Información sobre fotos de graduación",
+        photosText: "Las fotos profesionales de graduados y galerías del distrito se compartirán después de la ceremonia.",
+        orderPhotos: "Ordenar fotos del graduado",
+        viewGallery: "Ver galería del distrito",
+        socialTitle: "Celebración Comunitaria",
+        socialSub: "Comparta el momento con BISD",
+        socialText: "Se invita a las familias a etiquetar a BISD y celebrar a sus graduados en línea.",
+        supportTitle: "Contactos de Apoyo Familiar",
+        supportSub: "¿Necesita ayuda?",
+        email: "Correo electrónico",
+        eventHotline: "Línea de ayuda del evento",
+        campusOffice: "Oficina de la escuela",
+        hours: "Horario",
+        hoursValue: "Lunes–viernes, 8:00 AM–4:30 PM",
+        classTitle: "Conozca a la Clase de 2027",
+        classSub: "Función opcional de destacados de estudiantes",
+        bottomHelp: "¿Necesita ayuda rápida?",
+        askHub: "Preguntar",
+        chatTitle: "Asistente de Graduación",
+        chatIntro: "Este asistente de demostración da respuestas rápidas a las preguntas más comunes de las familias.",
+        chatDefault: "Elija una pregunta arriba para ver una respuesta rápida.",
+        close: "Cerrar",
+        footer: "Prototipo de demostración para experiencia familiar, comunicación del evento y apoyo a invitados.",
+        footerChannels: "Canales de entrega: códigos QR, correo electrónico, sitio web del distrito, redes sociales, materiales impresos y comunicación escolar."
+      }
+    };
+
+    function setText(selector, text) {
+      const element = document.querySelector(selector);
+      if (element) element.textContent = text;
+    }
+
+    function setLanguage(language) {
+      currentLanguage = language;
+      const t = translations[language];
+
+      document.getElementById('languageBtn').textContent = t.languageBtn;
+      document.documentElement.lang = language;
+
+      setText('.hero h1', t.heroTitle);
+      setText('.subhead', t.heroSubhead);
+      setText('label[for="campusSelect"]', t.campusLabel);
+      setText('.alert-bar span:last-child', t.alertText);
+
+      const quickLabels = [t.basics, t.parking, t.entry, t.access, t.live, t.help];
+      document.querySelectorAll('.quick-btn').forEach((btn, index) => {
+        const icon = btn.querySelector('span').outerHTML;
+        btn.innerHTML = icon + quickLabels[index];
+      });
+
+      const sectionTitles = [
+        [t.overviewTitle, t.overviewSub], [t.parkingTitle, t.parkingSub], [t.ticketTitle, t.ticketSub],
+        [t.accessibilityTitle, t.accessibilitySub], [t.faqTitle, t.faqSub], [t.liveTitle, t.liveSub],
+        [t.programTitle, t.programSub], [t.meetupTitle, t.meetupSub], [t.photosTitle, t.photosSub],
+        [t.socialTitle, t.socialSub], [t.supportTitle, t.supportSub], [t.classTitle, t.classSub]
+      ];
+
+      document.querySelectorAll('.section-title').forEach((section, index) => {
+        const h2 = section.querySelector('h2');
+        const p = section.querySelector('p');
+        if (sectionTitles[index]) {
+          h2.textContent = sectionTitles[index][0];
+          p.textContent = sectionTitles[index][1];
+        }
+      });
+
+      const overviewTiles = document.querySelectorAll('#overview .info-tile');
+      const overviewLabels = [t.campus, t.date, t.startTime, t.doorsOpen, t.venue, t.duration];
+      overviewTiles.forEach((tile, index) => tile.querySelector('strong').textContent = overviewLabels[index]);
+      overviewTiles[5].querySelector('span').textContent = t.durationValue;
+      setText('#overview .gold-callout', t.screenshotTip);
+
+      document.querySelector('#parking .map-placeholder').innerHTML = `${t.parkingMap}<br><small>${t.parkingMapSmall}</small>`;
+      const parkingTiles = document.querySelectorAll('#parking .info-tile');
+      const parkingLabels = [t.recommendedArrival, t.guestParking, t.adaParking, t.shuttle];
+      const parkingValues = [t.recommendedArrivalValue, t.guestParkingValue, t.adaParkingValue, t.shuttleValue];
+      parkingTiles.forEach((tile, index) => {
+        tile.querySelector('strong').textContent = parkingLabels[index];
+        tile.querySelector('span').textContent = parkingValues[index];
+      });
+      setText('#parking .gold-callout', t.trafficTip);
+
+      const ticketTiles = document.querySelectorAll('#tickets .info-tile');
+      const ticketLabels = [t.tickets, t.entryGate, t.reentry, t.children];
+      const ticketValues = [null, t.entryGateValue, t.reentryValue, t.childrenValue];
+      ticketTiles.forEach((tile, index) => {
+        tile.querySelector('strong').textContent = ticketLabels[index];
+        if (ticketValues[index]) tile.querySelector('span').textContent = ticketValues[index];
+      });
+      document.querySelector('#tickets .primary-btn').textContent = t.prohibitedBtn;
+      document.querySelector('#tickets .secondary-btn').textContent = t.entryHelpBtn;
+
+      const accessTiles = document.querySelectorAll('#access .info-tile');
+      const accessLabels = [t.adaSeating, t.wheelchair, t.restrooms, t.contact];
+      const accessValues = [t.adaSeatingValue, t.wheelchairValue, t.restroomsValue, null];
+      accessTiles.forEach((tile, index) => {
+        tile.querySelector('strong').textContent = accessLabels[index];
+        if (accessValues[index]) tile.querySelector('span').textContent = accessValues[index];
+      });
+      setText('#access .gold-callout', t.accessTip);
+
+      const faqItems = document.querySelectorAll('#faqs .faq-item');
+      const faqs = [[t.q1, t.a1], [t.q2, t.a2], [t.q3, t.a3], [t.q4, t.a4], [t.q5, t.a5], [t.q6, t.a6]];
+      faqItems.forEach((item, index) => {
+        item.querySelector('strong').textContent = faqs[index][0];
+        item.querySelector('p').textContent = faqs[index][1];
+      });
+
+      setText('#live .section-content > p', t.liveText);
+      const liveTiles = document.querySelectorAll('#live .info-tile');
+      liveTiles[0].querySelector('strong').textContent = t.streamBegins;
+      liveTiles[0].querySelector('span').textContent = t.streamBeginsValue;
+      liveTiles[1].querySelector('strong').textContent = t.replay;
+      liveTiles[1].querySelector('span').textContent = t.replayValue;
+      document.querySelector('#live .primary-btn').textContent = t.openLivestream;
+      document.querySelector('#live .secondary-btn').textContent = t.shareFamily;
+
+      document.querySelector('#program .primary-btn').textContent = t.viewProgram;
+
+      document.querySelector('#meetup .map-placeholder').innerHTML = `${t.meetupMap}<br><small>${t.meetupMapSmall}</small>`;
+      setText('#meetup .gold-callout', t.meetupTip);
+      const meetupTiles = document.querySelectorAll('#meetup .info-tile');
+      meetupTiles[0].querySelector('strong').textContent = t.meetupZones;
+      meetupTiles[0].querySelector('span').textContent = t.meetupZonesValue;
+      meetupTiles[1].querySelector('strong').textContent = t.photoSpots;
+      meetupTiles[1].querySelector('span').textContent = t.photoSpotsValue;
+
+      setText('#photos .section-content > p', t.photosText);
+      document.querySelector('#photos .primary-btn').textContent = t.orderPhotos;
+      document.querySelector('#photos .secondary-btn').textContent = t.viewGallery;
+
+      setText('#social .section-content > p', t.socialText);
+
+      const helpTiles = document.querySelectorAll('#help .info-tile');
+      const helpLabels = [t.email, t.eventHotline, t.campusOffice, t.hours];
+      helpTiles.forEach((tile, index) => tile.querySelector('strong').textContent = helpLabels[index]);
+      helpTiles[3].querySelector('span').textContent = t.hoursValue;
+
+      document.querySelector('.bottom-help span').textContent = t.bottomHelp;
+      document.querySelector('.bottom-help button').textContent = t.askHub;
+      setText('#chatTitle', t.chatTitle);
+      setText('.modal p', t.chatIntro);
+      setText('#chatAnswer', t.chatDefault);
+      document.querySelector('.close-modal').textContent = t.close;
+
+      const footerLines = document.querySelector('footer');
+      footerLines.innerHTML = `<strong>BISD Digital Family Graduation Hub</strong><br />${t.footer}<br />${t.footerChannels}`;
+
+      updateCampus();
+    }
 
     function toggleSection(button) {
       const card = button.closest('.section-card');
@@ -882,8 +1262,8 @@
       document.getElementById('startTime').textContent = data.start;
       document.getElementById('doorsOpen').textContent = data.doors;
       document.getElementById('venueName').textContent = data.venue;
-      document.getElementById('ticketInfo').textContent = data.ticket;
-      document.getElementById('campusOffice').textContent = data.office;
+      document.getElementById('ticketInfo').textContent = data.ticket[currentLanguage];
+      document.getElementById('campusOffice').textContent = data.office[currentLanguage];
       activeCountdownDate = data.countdown;
       updateCountdown();
     }
@@ -933,13 +1313,7 @@
     }
 
     function toggleLanguage() {
-      const btn = document.getElementById('languageBtn');
-      if (btn.textContent === 'Español') {
-        btn.textContent = 'English';
-        alert('Demo feature: Spanish translation view would load here.');
-      } else {
-        btn.textContent = 'Español';
-      }
+      setLanguage(currentLanguage === "en" ? "es" : "en");
     }
   </script>
 </body>
