@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BISD Digital Family Graduation Hub</title>
+  <style>
+    :root {
+      --navy: #071b3a;
+      --navy-2: #0d2a55;
+      --gold: #d6ad3b;
+      --gold-light: #f7e7b0;
+      --white: #ffffff;
+      --soft: #f5f7fb;
+      --text: #1f2937;
+      --muted: #64748b;
+      --success: #176b4d;
+      --warning: #9a5b00;
+      --shadow: 0 12px 30px rgba(7, 27, 58, 0.15);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--soft);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .app-shell {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--white);
+      min-height: 100vh;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--navy), var(--navy-2));
+      color: var(--white);
+      padding: 26px 18px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -80px -80px auto auto;
+      width: 220px;
+      height: 220px;
+      background: rgba(214, 173, 59, 0.16);
+      border-radius: 50%;
+    }
+
+    .brand-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.08);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .language-pill {
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.1);
+      color: var(--white);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    h1 {
+      font-size: clamp(30px, 7vw, 54px);
+      line-height: 1.02;
+      margin: 28px 0 10px;
+      max-width: 800px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .subhead {
+      color: rgba(255,255,255,.86);
+      font-size: 16px;
+      max-width: 680px;
+      margin: 0 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .campus-select-card {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: var(--radius);
+      padding: 14px;
+      margin: 18px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    select {
+      width: 100%;
+      padding: 14px 12px;
+      border-radius: 16px;
+      border: 0;
+      font-size: 16px;
+      font-weight: 800;
+      background: var(--white);
+      color: var(--navy);
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .count-card {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 18px;
+      padding: 10px 6px;
+      text-align: center;
+    }
+
+    .count-number {
+      display: block;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--gold-light);
+    }
+
+    .count-label {
+      display: block;
+      font-size: 11px;
+      color: rgba(255,255,255,.82);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .alert-bar {
+      background: #fff8dc;
+      border-bottom: 1px solid #f2d675;
+      color: var(--warning);
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .quick-actions {
+      padding: 16px 14px 12px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      background: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .quick-btn {
+      border: 1px solid #e5e7eb;
+      background: var(--white);
+      border-radius: 18px;
+      padding: 12px 8px;
+      text-align: center;
+      box-shadow: 0 5px 14px rgba(15, 23, 42, 0.06);
+      font-weight: 800;
+      font-size: 12px;
+      color: var(--navy);
+    }
+
+    .quick-btn span {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 3px;
+    }
+
+    main {
+      padding: 16px 14px 90px;
+    }
+
+    .section-card {
+      background: var(--white);
+      border: 1px solid #e6eaf1;
+      border-radius: var(--radius);
+      margin: 14px 0;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+    }
+
+    .section-toggle {
+      width: 100%;
+      background: var(--white);
+      border: 0;
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .section-title {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .icon-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: var(--navy);
+      color: var(--gold-light);
+      font-size: 21px;
+      flex: 0 0 auto;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 17px;
+      color: var(--navy);
+    }
+
+    .section-title p {
+      margin: 2px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .chevron {
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 24px;
+      transition: transform .2s ease;
+    }
+
+    .section-card.open .chevron {
+      transform: rotate(180deg);
+    }
+
+    .section-content {
+      display: none;
+      padding: 0 18px 20px 72px;
+      animation: fadeIn .22s ease;
+    }
+
+    .section-card.open .section-content {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .info-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .info-tile {
+      background: var(--soft);
+      border-radius: 16px;
+      padding: 12px;
+      border: 1px solid #e6eaf1;
+    }
+
+    .info-tile strong {
+      display: block;
+      color: var(--navy);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 2px;
+    }
+
+    .info-tile span, .info-tile p {
+      font-size: 15px;
+      margin: 0;
+      color: var(--text);
+    }
+
+    .map-placeholder {
+      min-height: 210px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #e9eef8, #ffffff);
+      border: 2px dashed #b9c2d0;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--navy);
+      padding: 18px;
+      margin: 12px 0;
+      font-weight: 800;
+    }
+
+    .gold-callout {
+      background: #fff7df;
+      border-left: 5px solid var(--gold);
+      border-radius: 14px;
+      padding: 12px;
+      color: var(--navy);
+      font-weight: 700;
+      margin: 12px 0;
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .primary-btn, .secondary-btn {
+      display: block;
+      text-align: center;
+      border-radius: 16px;
+      padding: 13px 14px;
+      font-weight: 900;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .primary-btn {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .secondary-btn {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #e6eaf1;
+      padding: 12px 0;
+    }
+
+    .faq-item:last-child { border-bottom: 0; }
+
+    .faq-item strong {
+      display: block;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .faq-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .program-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .program-list li {
+      margin-bottom: 8px;
+    }
+
+    .hashtag-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .hashtag {
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .spotlight-scroll {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 78%;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 4px 0 12px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .spotlight-card {
+      scroll-snap-align: start;
+      background: var(--soft);
+      border: 1px solid #e6eaf1;
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--gold-light);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .bottom-help {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 14px;
+      width: min(92%, 520px);
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px 10px 16px;
+      z-index: 20;
+      font-weight: 800;
+    }
+
+    .bottom-help button {
+      background: var(--gold);
+      color: var(--navy);
+      border: 0;
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 27, 58, .72);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 50;
+      padding: 12px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal {
+      width: min(100%, 560px);
+      background: var(--white);
+      border-radius: 26px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .modal h3 {
+      margin: 0 0 6px;
+      color: var(--navy);
+      font-size: 24px;
+    }
+
+    .modal p {
+      color: var(--muted);
+    }
+
+    .chat-options {
+      display: grid;
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .chat-options button {
+      background: var(--soft);
+      border: 1px solid #d9e0ec;
+      border-radius: 14px;
+      padding: 11px;
+      text-align: left;
+      font-weight: 800;
+      color: var(--navy);
+      cursor: pointer;
+    }
+
+    .chat-answer {
+      background: #fff7df;
+      border-radius: 16px;
+      padding: 12px;
+      min-height: 64px;
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .close-modal {
+      width: 100%;
+      margin-top: 12px;
+      background: var(--navy);
+      color: var(--white);
+      border: 0;
+      padding: 13px;
+      border-radius: 16px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 18px 110px;
+      color: var(--muted);
+      background: var(--soft);
+      font-size: 13px;
+    }
+
+    @media (min-width: 720px) {
+      .hero { padding: 42px 44px 36px; }
+      .quick-actions { grid-template-columns: repeat(6, 1fr); padding: 18px 44px; }
+      main { padding: 22px 44px 90px; }
+      .section-content { padding-left: 86px; }
+      .info-grid { grid-template-columns: repeat(2, 1fr); }
+      .button-row { grid-template-columns: repeat(2, 1fr); }
+      .spotlight-scroll { grid-auto-columns: 33%; }
+      .modal-backdrop { align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div class="brand-row">
+        <div class="brand-badge">🎓 BISD Graduation Hub</div>
+        <button class="language-pill" onclick="toggleLanguage()" id="languageBtn">Español</button>
+      </div>
+
+      <h1>Family Graduation Command Center</h1>
+      <p class="subhead">Everything families need for ceremony day: arrival details, parking, accessibility, livestream access, reunification guidance, photos, FAQs, and support.</p>
+
+      <div class="campus-select-card">
+        <label for="campusSelect">Choose Your Campus</label>
+        <select id="campusSelect" onchange="updateCampus()">
+          <option value="westbrook">West Brook High School</option>
+          <option value="beaumont">Beaumont United High School</option>
+          <option value="earlycollege">Early College High School</option>
+        </select>
+      </div>
+
+      <div class="countdown-grid" aria-label="Graduation countdown">
+        <div class="count-card"><span class="count-number" id="days">000</span><span class="count-label">Days</span></div>
+        <div class="count-card"><span class="count-number" id="hours">00</span><span class="count-label">Hours</span></div>
+        <div class="count-card"><span class="count-number" id="mins">00</span><span class="count-label">Mins</span></div>
+        <div class="count-card"><span class="count-number" id="secs">00</span><span class="count-label">Secs</span></div>
+      </div>
+    </header>
+
+    <div class="alert-bar">
+      <span>📣</span>
+      <span><strong>Graduation Day Reminder:</strong> Guests are encouraged to arrive 45–60 minutes before the ceremony start time.</span>
+    </div>
+
+    <nav class="quick-actions" aria-label="Quick links">
+      <a class="quick-btn" href="#overview"><span>🎓</span>Basics</a>
+      <a class="quick-btn" href="#parking"><span>🅿️</span>Parking</a>
+      <a class="quick-btn" href="#tickets"><span>🎟️</span>Entry</a>
+      <a class="quick-btn" href="#access"><span>♿</span>Access</a>
+      <a class="quick-btn" href="#live"><span>📺</span>Live</a>
+      <a class="quick-btn" href="#help"><span>☎️</span>Help</a>
+    </nav>
+
+    <main>
+      <section class="section-card open" id="overview">
+        <button class="section-toggle" onclick="toggleSection(this)">
+          <div class="section-title"><div class="icon-circle">🎓</div><div><h2>Ceremony Overview</h2><p>The basics families need first</p></div></div><div class="chevron">⌄</div>
+        </button>
+        <div class="section-content">
+          <div class="info-grid">
+            <div class="info-tile"><strong>Campus</strong><span id="campusName">West Brook High School</span></div>
+            <div class="info-tile"><strong>Date</strong><span id="gradDate">Saturday, May 29, 2027</span></div>
+            <div class="info-tile"><strong>Start Time</strong><span id="startTime">10:00 AM</span></div>
+            <div class="info-tile"><strong>Doors Open</strong><span id="doorsOpen">9:00 AM</span></div>
+            <div class="info-tile"><strong>Venue</strong><span id="venueName">Montagne Center</span></div>
+            <div class="info-tile"><strong>Estimated Duration</strong><span>90–120 minutes</span></div>
+          </div>
+          <div class="gold-callout">Tip: Screenshot this section before leaving home so you have the key details ready even with limited service.</div>
+        </div>
+      </section>
+
+      <section class="section-card" id="parking">
+        <button class="section-toggle" onclick="toggleSection(this)">
+          <div class="section-title"><div class="icon-circle">🅿️</div><div><h2>Parking & Arrival</h2><p>Getting there without stress</p></div></div><div class="chevron">⌄</div>
+        </button>
+        <div class="section-content">
+          <div class="map-placeholder">Interactive Parking Map Placeholder<br><small>Guest Parking • ADA Parking • Shuttle Stop • Restricted Areas</small></div>
+          <div class="info-grid">
+            <div class="info-tile"><strong>Recommended Arrival</strong><span>45–60 minutes early</span></div>
+            <div class="info-tile"><strong>Guest Parking</strong><span>Lots A, B, and C</span></div>
+            <div class="info-tile"><strong>ADA Parking</strong><span>Lot A near main entrance</span></div>
+            <div class="info-tile"><strong>Shuttle Info</strong><span>Available from overflow parking if needed</span></div>
+          </div>
+          <div class="gold-callout">Traffic staff will direct guests upon arrival. Please follow posted signage and avoid restricted graduate/staff areas.</div>
+        </div>
+      </section>
+
+      <section class="section-card" id="tickets">
+        <button class="section-toggle" onclick="toggleSection(this)">
+          <div class="section-title"><div class="icon-circle">🎟️</div><div><h2>Ticketing & Entry</h2><p>What families need to enter</p></div></div><div class="chevron">⌄</div>
+        </button>
+        <div class="section-content">
+          <div class="info-grid">
+            <div class="info-tile"><strong>Tickets</strong><span id="ticketInfo">No ticket required for this ceremony.</span></div>
+            <div class="info-tile"><strong>Entry Gate</strong><span>Main entrance doors</span></div>
+            <div class="info-tile"><strong>Re-Entry</strong><span>Re-entry is not permitted once guests exit.</span></div>
+            <div class="info-tile"><strong>Children</strong><span>Children are welcome but must remain with an adult.</span></div>
+          </div>
+          <div class="button-row">
+            <a class="primary-btn" href="#faqs">View Prohibited Items</a>
+            <a class="secondary-btn" href="#help">Need Entry Help?</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card" id="access">
+        <button class="section-toggle" onclick="toggleSection(this)">
+          <div class="section-title"><div class="icon-circle">♿</div><div><h2>Accessibility Support</h2><p>Everyone should be able to celebrate</p></div></div><div class="chevron">⌄</div>
+        </button>
+        <div class="section-content">
+          <div class="info-grid">
+            <div class="info-tile"><strong>ADA Seating</strong><span>Available near main seating areas on a first-come basis.</span></div>
+            <div class="info-tile"><strong>Wheelchair Access</strong><span>Accessible routes available from ADA parking.</span></div>
+            <div class="info-tile"><strong>Restrooms</strong><span>Accessible restrooms located near main concourse.</span></div>
+            <div class="info-tile"><strong>Contact</strong><span>graduation@bisd.edu</span></div>
+          </div>
+          <div class="gold-callout">Families needing support are encouraged to contact the campus graduation office before ceremony day.</div>
+        </div>
+      </section>
+
+      <section class="section-card" id="faqs">
+        <button class="section-toggle" onclick="toggleSection(this)">
+          <div class="section-title"><div class="icon-circle">❓</div><div><h2>Ceremony Expectations & FAQs</h2><p>Avoid the day-of chaos</p></div></div><div class="chevron">⌄</div>
+        </button>
+        <div class="section-content">
+          <div class="faq-item"><strong>How long is the ceremony?</strong><p>Most ceremonies last approximately 90–120 minutes.</p></div>
+          <div class="faq-item"><strong>Can I bring balloons or large signs?</strong><p>Large balloons, oversized signs, and items that block views are not allowed inside the venue.</p></div>
+          <div class="faq-item"><strong>Can I bring outside food or drinks?</strong><p>Outside food and drinks are not permitted unless needed for medical reasons.</p></div>
+          <div class="faq-item"><strong>What items are prohibited?</strong><p>Weapons, noisemakers, large bags, confetti, air horns, and view-blocking decorations are prohibited.</p></div>
+          <div class="faq-item"><strong>What if weather impacts plans?</strong><p>Weather updates will be posted on this hub, district social media, and campus communication channels.</p></div>
+          <div class="faq-item"><strong>What if my graduate is late?</strong><p>Graduates should follow campus reporting instructions. Late arrivals may be directed by campus staff.</p></div>
+        </div>
+      </section>
+
+      <section class="section-card" id="live">
+        <button class="section-toggle" onclick="toggleSection(this)">
+          <div class="section-title"><div class="icon-circle">📺</div><div><h2>Livestream Access</h2><p>Celebrate from anywhere</p></div></div><div class="chevron">⌄</div>
+        </button>
+        <div class="section-content">
+          <p>Can’t attend in person? Families and friends can watch the ceremony online from any mobile device, tablet, or computer.</p>
+          <div class="info-grid">
+            <div class="info-tile"><strong>Stream Begins</strong><span>15 minutes before ceremony</span></div>
+            <div class="info-tile"><strong>Replay</strong><span>Available within 48 hours, if planned</span></div>
+          </div>
+          <div class="button-row">
+            <a class="primary-btn" href="#" onclick="demoAlert(event, 'Livestream link would open here.')">Open Livestream</a>
+            <a class="secondary-btn" href="#" onclick="demoAlert(event, 'Share link copied for demo purposes.')">Share with Family</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card" id="program">
+        <button class="section-toggle" onclick="toggleSection(this)">
+          <div class="section-title"><div class="icon-circle">📖</div><div><h2>Digital Program</h2><p>Order of ceremony and recognitions</p></div></div><div class="chevron">⌄</div>
+        </button>
+        <div class="section-content">
+          <ol class="program-list">
+            <li>Processional</li>
+            <li>Welcome from District Leadership</li>
+            <li>Principal Remarks</li>
+            <li>Student Speakers</li>
+            <li>Graduate Recognition</li>
+            <li>Certification of Graduates</li>
+            <li>Recessional</li>
+          </ol>
+          <div class="button-row">
+            <a class="primary-btn" href="#" onclick="demoAlert(event, 'Digital program PDF would open here.')">View Full Program</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card" id="meetup">
+        <button class="section-toggle" onclick="toggleSection(this)">
+          <div class="section-title"><div class="icon-circle">📍</div><div><h2>Post-Ceremony Reunification</h2><p>Where to meet your graduate</p></div></div><div class="chevron">⌄</div>
+        </button>
+        <div class="section-content">
+          <div class="map-placeholder">Reunification Map Placeholder<br><small>Family Zones • Photo Areas • Restricted Graduate Exit Areas</small></div>
+          <div class="gold-callout">Designated graduate meet-up zones will be available immediately following the ceremony. Families should avoid gathering near restricted exits.</div>
+          <div class="info-grid">
+            <div class="info-tile"><strong>Meet-Up Zones</strong><span>Zones 1–4 outside the main concourse</span></div>
+            <div class="info-tile"><strong>Photo Spots</strong><span>Gold backdrop, campus banner, and outdoor plaza</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card" id="photos">
+        <button class="section-toggle" onclick="toggleSection(this)">
+          <div class="section-title"><div class="icon-circle">📷</div><div><h2>Photos & Memories</h2><p>Graduation photo information</p></div></div><div class="chevron">⌄</div>
+        </button>
+        <div class="section-content">
+          <p>Professional graduate photos and district recap galleries will be shared after the ceremony.</p>
+          <div class="button-row">
+            <a class="primary-btn" href="#" onclick="demoAlert(event, 'Photo vendor ordering page would open here.')">Order Graduate Photos</a>
+            <a class="secondary-btn" href="#" onclick="demoAlert(event, 'District photo gallery would open here.')">View District Gallery</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card" id="social">
+        <button class="section-toggle" onclick="toggleSection(this)">
+          <div class="section-title"><div class="icon-circle">✨</div><div><h2>Community Celebration</h2><p>Share the moment with BISD</p></div></div><div class="chevron">⌄</div>
+        </button>
+        <div class="section-content">
+          <p>Families are encouraged to tag BISD and celebrate their graduates online.</p>
+          <div class="hashtag-grid">
+            <span class="hashtag">#RootedInBeaumont</span>
+            <span class="hashtag">#ReadyForTheFuture</span>
+            <span class="hashtag">#BISDClassOf2027</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card" id="help">
+        <button class="section-toggle" onclick="toggleSection(this)">
+          <div class="section-title"><div class="icon-circle">☎️</div><div><h2>Family Support Contacts</h2><p>Need help?</p></div></div><div class="chevron">⌄</div>
+        </button>
+        <div class="section-content">
+          <div class="info-grid">
+            <div class="info-tile"><strong>Email</strong><span>graduation@bisd.edu</span></div>
+            <div class="info-tile"><strong>Event Hotline</strong><span>(409) 555-2027</span></div>
+            <div class="info-tile"><strong>Campus Office</strong><span id="campusOffice">West Brook Graduation Office</span></div>
+            <div class="info-tile"><strong>Hours</strong><span>Monday–Friday, 8:00 AM–4:30 PM</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card" id="class2027">
+        <button class="section-toggle" onclick="toggleSection(this)">
+          <div class="section-title"><div class="icon-circle">⭐</div><div><h2>Meet the Class of 2027</h2><p>Optional senior spotlight feature</p></div></div><div class="chevron">⌄</div>
+        </button>
+        <div class="section-content">
+          <div class="spotlight-scroll">
+            <div class="spotlight-card"><div class="avatar">AJ</div><strong>Ari Johnson</strong><p>Future engineer, robotics mentor, and proud BISD graduate.</p></div>
+            <div class="spotlight-card"><div class="avatar">MR</div><strong>Maya Ramirez</strong><p>Scholarship recipient, student leader, and future educator.</p></div>
+            <div class="spotlight-card"><div class="avatar">CT</div><strong>Caleb Thomas</strong><p>Band captain, community volunteer, and future business major.</p></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <strong>BISD Digital Family Graduation Hub</strong><br />
+      Demo prototype for family experience, event communication, and guest support planning.<br />
+      Delivery channels: QR code signage, email, district website, social media, printed materials, and campus communication.
+    </footer>
+  </div>
+
+  <div class="bottom-help">
+    <span>Need quick help?</span>
+    <button onclick="openChat()">Ask Hub</button>
+  </div>
+
+  <div class="modal-backdrop" id="chatModal" role="dialog" aria-modal="true" aria-labelledby="chatTitle">
+    <div class="modal">
+      <h3 id="chatTitle">Graduation Support Assistant</h3>
+      <p>This demo assistant gives families quick answers to the most common graduation questions.</p>
+      <div class="chat-options">
+        <button onclick="answerChat('Guests are encouraged to arrive 45–60 minutes before the ceremony. Doors open one hour before start time.')">What time should we arrive?</button>
+        <button onclick="answerChat('ADA parking is available in Lot A near the main entrance. Accessible seating is available inside the venue.')">Where is ADA parking?</button>
+        <button onclick="answerChat('Large balloons, oversized signs, air horns, confetti, weapons, and large bags are not permitted.')">What items are prohibited?</button>
+        <button onclick="answerChat('Families should meet graduates in the designated reunification zones outside the main concourse after the ceremony.')">Where do we meet our graduate?</button>
+      </div>
+      <div class="chat-answer" id="chatAnswer">Choose a question above to see a quick answer.</div>
+      <button class="close-modal" onclick="closeChat()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const campusData = {
+      westbrook: {
+        campus: "West Brook High School",
+        date: "Saturday, May 29, 2027",
+        start: "10:00 AM",
+        doors: "9:00 AM",
+        venue: "Montagne Center",
+        ticket: "No ticket required for this ceremony.",
+        office: "West Brook Graduation Office",
+        countdown: "2027-05-29T10:00:00"
+      },
+      beaumont: {
+        campus: "Beaumont United High School",
+        date: "Saturday, May 29, 2027",
+        start: "2:00 PM",
+        doors: "1:00 PM",
+        venue: "Montagne Center",
+        ticket: "Digital tickets required. Please have tickets ready before entry.",
+        office: "Beaumont United Graduation Office",
+        countdown: "2027-05-29T14:00:00"
+      },
+      earlycollege: {
+        campus: "Early College High School",
+        date: "Friday, May 28, 2027",
+        start: "6:00 PM",
+        doors: "5:00 PM",
+        venue: "BISD Performing Arts Center",
+        ticket: "Ticket required. Each graduate receives a set number of guest tickets.",
+        office: "Early College Graduation Office",
+        countdown: "2027-05-28T18:00:00"
+      }
+    };
+
+    let activeCountdownDate = campusData.westbrook.countdown;
+
+    function toggleSection(button) {
+      const card = button.closest('.section-card');
+      card.classList.toggle('open');
+    }
+
+    function updateCampus() {
+      const key = document.getElementById('campusSelect').value;
+      const data = campusData[key];
+      document.getElementById('campusName').textContent = data.campus;
+      document.getElementById('gradDate').textContent = data.date;
+      document.getElementById('startTime').textContent = data.start;
+      document.getElementById('doorsOpen').textContent = data.doors;
+      document.getElementById('venueName').textContent = data.venue;
+      document.getElementById('ticketInfo').textContent = data.ticket;
+      document.getElementById('campusOffice').textContent = data.office;
+      activeCountdownDate = data.countdown;
+      updateCountdown();
+    }
+
+    function updateCountdown() {
+      const ceremonyDate = new Date(activeCountdownDate).getTime();
+      const now = new Date().getTime();
+      const distance = ceremonyDate - now;
+
+      if (distance <= 0) {
+        document.getElementById('days').textContent = '000';
+        document.getElementById('hours').textContent = '00';
+        document.getElementById('mins').textContent = '00';
+        document.getElementById('secs').textContent = '00';
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('days').textContent = String(days).padStart(3, '0');
+      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('mins').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('secs').textContent = String(seconds).padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    function openChat() {
+      document.getElementById('chatModal').classList.add('show');
+    }
+
+    function closeChat() {
+      document.getElementById('chatModal').classList.remove('show');
+    }
+
+    function answerChat(text) {
+      document.getElementById('chatAnswer').textContent = text;
+    }
+
+    function demoAlert(event, message) {
+      event.preventDefault();
+      alert(message);
+    }
+
+    function toggleLanguage() {
+      const btn = document.getElementById('languageBtn');
+      if (btn.textContent === 'Español') {
+        btn.textContent = 'English';
+        alert('Demo feature: Spanish translation view would load here.');
+      } else {
+        btn.textContent = 'Español';
+      }
+    }
+  </script>
+</body>
+</html>
